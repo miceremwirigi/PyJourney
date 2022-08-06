@@ -1,9 +1,10 @@
 """ Finding the chance two people share a birthday in a group"""
-import datetime
+
 import random
 import datetime as d  # import datetime as letter d for ease
 
-def getbirthdays(numBirthdays):  # function to geturn a set of random birthdays
+
+def getbirthdays(numBirthdays):  # function to return a set of random birthdays
     birthdays = []  # list to store the birthdays
     startOfYear = d.date(2000, 1, 1)  # Set the beginning date
     for i in range(numBirthdays):
@@ -12,6 +13,7 @@ def getbirthdays(numBirthdays):  # function to geturn a set of random birthdays
         birthdays.append(birthday)  # Add the date to the list of birthdays
     return birthdays  # Return the list of birthdays
 
+
 def getmatch(birthdays):  # Function to return matching birthday
     if len(birthdays) == len(set(birthdays)):  # Check if there is any recurring birthday
         return None                            # and return none if there isn't
@@ -19,6 +21,7 @@ def getmatch(birthdays):  # Function to return matching birthday
         for b, birthdayB in enumerate(birthdays[a + 1:]):
             if birthdayA == birthdayB:  # Check the recurring birthday if there is any
                 return birthdayA  # Return the recurring birthday
+
 
 while True:  # Prompt the user to input a value btn 0 and 100
     print('How many birthdays do you want?')
@@ -33,15 +36,15 @@ months = ['Jan', 'Feb', 'March', 'April', 'May', 'June',  # Create a list of mon
           'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 print('The birthdays for the {} people are:'. format(numBirthdays))
-for i, birthday in enumerate(birthdays):  # Print the random birthdays generated
+for j, birthday in enumerate(birthdays):  # Print the random birthdays generated
     print('{} {} {}, '. format(birthday.year, months[birthday.month-1], birthday.day), end='')
 print()
 
-if match != None:  # Prinng matching birthday if exists
+if match is None:  # Print matching birthday if exists
+    print('There are no matching birthdays')
+else:
     matchMonth = match.month-1
     print('The matching birthday is {} {} {}'. format(match.year, months[matchMonth], match.day))
-else:
-    print('There are no matching birthdays')
 
 # Run 1_000_000 Simulations to calculate the probability of matching birthdays
 print('I will now run 1_000_000 simulations to determine the probability')
@@ -49,18 +52,16 @@ input('Press Enter to begin')
 print('Running 1_000_000 simulations ...')
 simNum = 0
 
-for i in range(1_000_000):  # Generate random birthdays and check for  matching ones 1_000_000 times
+for j in range(1_000_000):  # Generate random birthdays and check for  matching ones 1_000_000 times
     birthdays = getbirthdays(numBirthdays)
-    if getmatch(birthdays) != None:
+    if getmatch(birthdays) is None:
+        simNum = simNum
+    else:
         simNum += 1
-    if i % 200_000 == 0:  # Print progress every 200_000 simulations
-        print('{} simulations ran'.format(i))
+    if j % 200_000 == 0:  # Print progress every 200_000 simulations
+        print('{} simulations ran'.format(j))
 
-probability = round((simNum/1_000_000)*100, 2)  # Calculate the probability of matching birthdays in a group of random people
+probability = round((simNum/1_000_000) * 100, 2)  # Calculate the probability of matching birthdays in a group of random people
 
 # Print the results of the simulation
 print('Having ran 2_00_000 simulations for a group of \n {} people, there is a {} % \n chance that two people share a birthday'.format(numBirthdays, probability))
-
-
-
-
