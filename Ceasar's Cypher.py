@@ -2,6 +2,7 @@
 performing addition or subtraction operations in them and then translating the numbers back to letters: Inspired by a
 project on Segway;s the Big book for small projects in Python"""
 
+
 while True:  # Prompt te user to choose the mode (encrypt or decrypt)
     print('Do yu want to (e)ncrypt or (d)encrypt?')
     mode = input('>> ').lower()
@@ -43,4 +44,3 @@ for i in message:  # loop to check translate each letter in the message
     else:
         encrypted = encrypted + i  # Add symbol as is if it's not in the alphabet
 print(encrypted)  # Print the encrypted message
-
